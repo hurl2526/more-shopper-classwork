@@ -31,11 +31,12 @@
             >Categories</a
           >
           <div class="dropdown-menu" aria-labelledby="dropdown01">
+            <% console.log(categories) %> 
             <ul>
               <% for( let i = 0; i < categories.length; i++ ) { %>
               <li style="list-style: none;">
-                <a
-                  href="#"
+                <a              
+                  href="/api/products/all-products/<%=categories[i]._id%>"
                   class="nav-category-list"
                   style="color: black; text-decoration: none;"
                 >

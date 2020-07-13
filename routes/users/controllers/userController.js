@@ -1,9 +1,9 @@
 const User = require('../models/User');
 const { validationResult } = require('express-validator');
-const bcrypt = require('bcryptjs')
+const bcrypt = require('bcryptjs');
 
 module.exports = {
-  register: async (req, res) => {
+  register: async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty())
       return res.status(422).json({ errors: errors.array() });
@@ -21,7 +21,8 @@ module.exports = {
         if (err) {
           return res.status(400).json({ confirmation: false, message: err });
         } else {
-          res.redirect(301, '/');
+          // res.redirect(301, '/');
+          next();
         }
       });
     } catch (error) {
@@ -108,5 +109,5 @@ module.exports = {
         })
         .catch((err) => reject(err));
     });
-  }
+  },
 };

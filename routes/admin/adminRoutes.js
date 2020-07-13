@@ -8,14 +8,14 @@ const router = require('express').Router();
 // const Category = require('./categories/models/Category');
 const checkCategory = require('./categories/utils/checkCategory')
 const validation= require('./adminValidation/categoryValidation')
-const productCreator = require('./helper/createProducts')
+const createProduct = require('./helper/createProducts')
 
 
 router.get('/add-category', (req, res, next) => {
   return res.render('admin/add-category')
 });
 
-router.post('/add-category',checkCategory, validation, productCreator)
+router.post('/add-category',checkCategory, validation, createProduct)
 
 
 module.exports = router;

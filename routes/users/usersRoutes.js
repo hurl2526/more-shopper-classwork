@@ -11,6 +11,8 @@ const loginValidation = require('./utils/loginValidation');
 const passport = require('passport');
 const { check, validationResult } = require('express-validator');
 
+
+const {createUserCart} = require('../cart/controllers/cartControllers')
 /* GET users listing. */
 router.get('/', function (req, res, next) {
   res.send('respond with a resource');
@@ -22,7 +24,7 @@ router.get('/', function (req, res, next) {
 //   check('password', 'Please include valid password').isLength({ min: 6 }),
 // ];
 
-router.post('/register', userValidation, register);
+router.post('/register', userValidation, register,createUserCart);
 
 router.get('/register', (req, res) => {
   if (req.isAuthenticated()) {

@@ -10,13 +10,18 @@ const flash = require('connect-flash');
 const passport = require('passport');
 const methodOverride = require('method-override');
 const getAllCategories = require('./routes/admin/categories/middleware/getAllCategories')
+
 require('./lib/passport');
 // const {check,validationResult}= require('express-validator')
 require('dotenv').config();
+
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users/usersRoutes');
 const adminRouter = require('./routes/admin/adminRoutes');
 const productRouter = require('./routes/admin/products/productRoutes');
+const cartRouter = require('./routes/cart/cartRoutes');
+const cartMiddleware = require('./routes/cart/middleware/cartMiddleware')
+
 const app = express();
 
 mongoose
@@ -68,11 +73,12 @@ app.use(function (req, res, next) {
   res.locals.success = req.flash('success');
   next();
 });
-
+app.use(cartMiddleware)
 app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/admin', adminRouter);
 app.use('/api/products',productRouter)
+app.use('/api/cart',cartRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
